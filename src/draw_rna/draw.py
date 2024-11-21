@@ -10,11 +10,11 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 
 
-NODE_R = 10
+NODE_R = 8 #10
 PRIMARY_SPACE = 20
-PAIR_SPACE = 20
+PAIR_SPACE = 24 #20
 
-TEXT_SIZE = 50
+TEXT_SIZE = 40 #50
 
 RENDER_IN_LETTERS = True
 
@@ -36,7 +36,7 @@ COLORS = {#"r": [255, 0, 0],
           "u": [138, 43, 226]}
           #"h": [46, 184, 46]}
 
-def draw_rna(sequence, secstruct, color_list, filename="secstruct", line=False,
+def draw_rna(sequence, secstruct, color_list, filename="secstruct", line=False, outline=True,
     cmap_name='viridis', rotation=0, alpha=None,
     ext_color_file=False, chemical_mapping_mode=False, 
     large_mode=False, movie_mode=False, svg_mode=False, vmin=None, vmax=None, ax=None):
@@ -126,7 +126,7 @@ def draw_rna(sequence, secstruct, color_list, filename="secstruct", line=False,
          colors, pairs, sequence, RENDER_IN_LETTERS, external_offset, line, svg_mode, alpha)
     else:
         r.draw(drawing_obj, CELL_PADDING, CELL_PADDING, colors,
-         pairs, sequence, RENDER_IN_LETTERS, external_offset, line, svg_mode, alpha )
+         pairs, sequence, RENDER_IN_LETTERS, external_offset, line, outline, svg_mode, alpha )
 
     if not svg_mode:
         # apply matplotlib settings

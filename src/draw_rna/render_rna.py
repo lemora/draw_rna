@@ -275,7 +275,7 @@ class RNARenderer:
     def get_size(self):
         return self.size_
 
-    def draw(self, svgobj, offset_x, offset_y, colors, pairs, sequence, render_in_letter, external_offset, line=False, svg_mode=True, alpha=None):
+    def draw(self, svgobj, offset_x, offset_y, colors, pairs, sequence, render_in_letter, external_offset, line=False, outline=True, svg_mode=True, alpha=None):
         if alpha is None:
             alpha = np.ones(len(self.xarray_))
 
@@ -292,15 +292,18 @@ class RNARenderer:
             else:
                 if pairs:
                     for pair in pairs:
+                        outline_color = 'black' if outline else pair['color']
+                        outline_width = 3 if outline else self.NODE_R
                         svgobj.line(offset_x + self.xarray_[pair['from']], offset_y + self.yarray_[pair['from']],
-                         offset_x + self.xarray_[pair['to']], offset_y + self.yarray_[pair['to']],
-                          pair['color'], self.NODE_R, alpha=min([alpha[pair['from']],alpha[pair['to']]]))
+                                    offset_x + self.xarray_[pair['to']], offset_y + self.yarray_[pair['to']],
+                                    outline_color, width=outline_width, alpha=min([alpha[pair['from']],alpha[pair['to']]]))
 
                 for ii in range(0,len(self.xarray_)):
                     if colors == None:
                         svgobj.circle(self.xarray_[ii] + offset_x, self.yarray_[ii] + offset_y, self.NODE_R, "#000000", "#000000", alpha[ii])
                     else:
-                        svgobj.circle(self.xarray_[ii] + offset_x, self.yarray_[ii] + offset_y, self.NODE_R, colors[ii], colors[ii], alpha[ii])
+                        outline_color = 'black' if outline else colors[ii]
+                        svgobj.circle(self.xarray_[ii] + offset_x, self.yarray_[ii] + offset_y, self.NODE_R, colors[ii], outline_color, alpha[ii])
 
                 if sequence and render_in_letter:
 
